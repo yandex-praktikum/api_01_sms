@@ -27,7 +27,7 @@ class MockResponsePOST:
 
 class TestComment:
 
-    def test_sms_sender(self, monkeypatch, twilio_client, twilio_sid):
+    def test_send_sms(self, monkeypatch, twilio_client, twilio_sid):
 
         def mock_twilio_client(*args, **kwargs):
             return twilio_client
@@ -36,14 +36,14 @@ class TestComment:
 
         import homework
 
-        assert hasattr(homework, 'sms_sender'), 'Функция `sms_sender()` не существует. Не удаляйте её.'
-        assert hasattr(homework.sms_sender, '__call__'), 'Функция `sms_sender()` не существует. Не удаляйте её.'
-        assert len(signature(homework.sms_sender).parameters) == 1, \
-            'Функция `sms_sender()` должна быть с одним параметром.'
+        assert hasattr(homework, 'send_sms'), 'Функция `send_sms()` не существует. Не удаляйте её.'
+        assert hasattr(homework.send_sms, '__call__'), 'Функция `send_sms()` не существует. Не удаляйте её.'
+        assert len(signature(homework.send_sms).parameters) == 1, \
+            'Функция `send_sms()` должна быть с одним параметром.'
 
-        result = homework.sms_sender('Test_message_check')
+        result = homework.send_sms('Test_message_check')
         assert result == twilio_sid, \
-            'Проверьте, что возвращаете `sid` смс сообщения в результате работы функции `sms_sender`'
+            'Проверьте, что возвращаете `sid` смс сообщения в результате работы функции `send_sms`'
 
     def test_get_status(self, monkeypatch, vk_sid, response_get):
 

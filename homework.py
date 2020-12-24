@@ -1,8 +1,9 @@
 import time
-import requests
 
+import requests
 from twilio.rest import Client
 
+# здесь проинициализируйте Client 
 
 def get_status(user_id):
     params = {
@@ -12,13 +13,12 @@ def get_status(user_id):
     return ...  # Верните статус пользователя в ВК
 
 
-def send_sms(sms_text, client):
+def send_sms(sms_text):
     ...
     return ...  # Верните sid отправленного сообщения из Twilio
 
 
 if __name__ == '__main__':
-    # тут происходит инициализация Client
     vk_id = input('Введите id ')
     while True:
         if get_status(vk_id) == 1:
