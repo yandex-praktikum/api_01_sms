@@ -1,6 +1,7 @@
-import pytest
 import random
 import string
+
+import pytest
 
 
 def random_string(string_length=15):
@@ -15,13 +16,21 @@ def twilio_sid():
 
 class MockTwilioCreate:
 
-    def __init__(self, to, from_=None, body=None, twilio_sid_val=None, **kwargs):
-        assert to is not None, \
-            'Проверьте, что вы указали куда отправить смс в функции `sms_sender` при отправке сообщения'
-        assert from_ is not None, \
-            'Проверьте, что вы указали куда c какого номера отправить смс в функции `sms_sender` при отправке сообщения'
-        assert body is not None, \
-            'Проверьте, что вы указали текст смс сообщения в функции `sms_sender` при отправке сообщения'
+    def __init__(
+            self, to, from_=None, body=None, twilio_sid_val=None, **kwargs
+    ):
+        assert to is not None, (
+            'Проверьте, что вы указали куда отправить смс в функции '
+            '`sms_sender` при отправке сообщения'
+        )
+        assert from_ is not None, (
+            'Проверьте, что вы указали куда c какого номера отправить '
+            'смс в функции `sms_sender` при отправке сообщения'
+        )
+        assert body is not None, (
+            'Проверьте, что вы указали текст смс сообщения в функции '
+            '`sms_sender` при отправке сообщения'
+        )
         self.sid = twilio_sid_val
         self.kwargs = kwargs
 
@@ -34,7 +43,9 @@ class MockTwilioMessages:
         self.twilio_sid_val = twilio_sid_val
 
     def create(self, *args, **kwargs):
-        return MockTwilioCreate(*args, twilio_sid_val=self.twilio_sid_val, **kwargs)
+        return MockTwilioCreate(
+            *args, twilio_sid_val=self.twilio_sid_val, **kwargs
+        )
 
 
 class MockTwilioClient:
@@ -53,4 +64,3 @@ class MockTwilioClient:
 def twilio_client(twilio_sid):
 
     return MockTwilioClient(twilio_sid_val=twilio_sid)
-
