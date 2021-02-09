@@ -21,15 +21,15 @@ class MockTwilioCreate:
     ):
         assert to is not None, (
             'Проверьте, что вы указали куда отправить смс в функции '
-            '`sms_sender` при отправке сообщения'
+            '`send_sms` при отправке сообщения'
         )
         assert from_ is not None, (
             'Проверьте, что вы указали куда c какого номера отправить '
-            'смс в функции `sms_sender` при отправке сообщения'
+            'смс в функции `send_sms` при отправке сообщения'
         )
         assert body is not None, (
             'Проверьте, что вы указали текст смс сообщения в функции '
-            '`sms_sender` при отправке сообщения'
+            '`send_sms` при отправке сообщения'
         )
         self.sid = twilio_sid_val
         self.kwargs = kwargs
