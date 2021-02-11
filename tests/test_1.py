@@ -1,24 +1,39 @@
 from inspect import signature
 
-import twilio.rest
 import requests
+import twilio.rest
 
 
 class MockResponsePOST:
 
     def __init__(self, url, data=None, json=None, vk_sid=None, **kwargs):
-        assert url == 'https://api.vk.com/method/users.get', \
-            'Проверьте, что вы делаете запрос на правильный ресурс ВК для получения статуса пользователя'
-        assert data is None, 'Проверьте, что вы не передаете никаких данных в тело запроса для ВК'
-        assert 'params' in kwargs, 'Проверьте, что вы передали параметры `params` для запроса ВК'
-        assert 'user_ids' in kwargs['params'], \
-            'Проверьте, что в параметрах `params` для запроса ВК добавили id пользователя `user_ids`'
-        assert 'fields' in kwargs['params'], \
-            'Проверьте, что в параметрах `params` для запроса ВК добавили поле `fields`'
-        assert kwargs['params']['fields'] == 'online', \
-            'Проверьте, что в параметрах `params` для запроса ВК добавили поле `fields` со значением `online`'
-        assert 'access_token' in kwargs['params'], \
-            'Проверьте, что в параметрах `params` для запроса ВК добавили поле `access_token`'
+        assert url == 'https://api.vk.com/method/users.get', (
+            'Проверьте, что вы делаете запрос на правильный ресурс ВК '
+            'для получения статуса пользователя'
+        )
+        assert data is None, (
+            'Проверьте, что вы не передаете никаких данных в тело запроса '
+            'для ВК'
+        )
+        assert 'params' in kwargs, (
+            'Проверьте, что вы передали параметры `params` для запроса ВК'
+        )
+        assert 'user_ids' in kwargs['params'], (
+            'Проверьте, что в параметрах `params` для запроса ВК добавили id '
+            'пользователя `user_ids`'
+        )
+        assert 'fields' in kwargs['params'], (
+            'Проверьте, что в параметрах `params` для запроса ВК добавили '
+            'поле `fields`'
+        )
+        assert kwargs['params']['fields'] == 'online', (
+            'Проверьте, что в параметрах `params` для запроса ВК добавили '
+            'поле `fields` со значением `online`'
+        )
+        assert 'access_token' in kwargs['params'], (
+            'Проверьте, что в параметрах `params` для запроса ВК добавили '
+            'поле `access_token`'
+        )
         self.vk_sid = vk_sid
 
     def json(self):
@@ -36,14 +51,21 @@ class TestComment:
 
         import homework
 
-        assert hasattr(homework, 'send_sms'), 'Функция `send_sms()` не существует. Не удаляйте её.'
-        assert hasattr(homework.send_sms, '__call__'), 'Функция `send_sms()` не существует. Не удаляйте её.'
-        assert len(signature(homework.send_sms).parameters) == 1, \
+        assert hasattr(homework, 'send_sms'), (
+            'Функция `send_sms()` не существует. Не удаляйте её.'
+        )
+        assert hasattr(homework.send_sms, '__call__'), (
+            'Функция `send_sms()` не существует. Не удаляйте её.'
+        )
+        assert len(signature(homework.send_sms).parameters) == 1, (
             'Функция `send_sms()` должна быть с одним параметром.'
+        )
 
         result = homework.send_sms('Test_message_check')
-        assert result == twilio_sid, \
-            'Проверьте, что возвращаете `sid` смс сообщения в результате работы функции `send_sms`'
+        assert result == twilio_sid, (
+            'Проверьте, что возвращаете `sid` смс сообщения в результате '
+            'работы функции `send_sms`'
+        )
 
     def test_get_status(self, monkeypatch, vk_sid, response_get):
 
@@ -59,11 +81,18 @@ class TestComment:
 
         import homework
 
-        assert hasattr(homework, 'get_status'), 'Функция `get_status()` не существует. Не удаляйте её.'
-        assert hasattr(homework.get_status, '__call__'), 'Функция `get_status()` не существует. Не удаляйте её.'
-        assert len(signature(homework.get_status).parameters) == 1, \
+        assert hasattr(homework, 'get_status'), (
+            'Функция `get_status()` не существует. Не удаляйте её.'
+        )
+        assert hasattr(homework.get_status, '__call__'), (
+            'Функция `get_status()` не существует. Не удаляйте её.'
+        )
+        assert len(signature(homework.get_status).parameters) == 1, (
             'Функция `get_status()` должна быть с одним параметром.'
+        )
 
         result = homework.get_status(234435234)
-        assert result == vk_sid, \
-            'Проверьте, что возвращаете значение `online` в ответе API ВК в результате работы функции `get_status`'
+        assert result == vk_sid, (
+            'Проверьте, что возвращаете значение `online` в ответе API ВК '
+            'в результате работы функции `get_status`'
+        )
